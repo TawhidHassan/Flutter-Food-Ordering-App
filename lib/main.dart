@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_ordering_app/screen/login_page.dart';
 import 'package:flutter_food_ordering_app/screen/welcome_page.dart';
 
 void main() {
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FOOD Ordering',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.pinkAccent,
       ),
-      home:,
+      home:Login(),
     );
   }
 }
