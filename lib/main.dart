@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_food_ordering_app/screen/homePage.dart';
 import 'package:flutter_food_ordering_app/screen/login_page.dart';
 import 'package:flutter_food_ordering_app/screen/welcome_page.dart';
 
@@ -19,7 +21,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.pinkAccent,
       ),
-      home:Login(),
+      home:StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context,snapshot){
+          if(snapshot.hasData){
+            return HomePage();
+          }else{
+            return Login();
+          }
+
+          },
+
+      ),
     );
   }
 }
