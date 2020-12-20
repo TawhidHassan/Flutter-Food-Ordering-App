@@ -3,6 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/screen/login_page.dart';
+
+import 'about.dart';
+import 'contact.dart';
 class HomePage extends StatelessWidget {
   Widget _buildSingleFeature({
     context,
@@ -129,7 +132,7 @@ class HomePage extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            height: 50,
+            height: 10,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -160,15 +163,15 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    height: 120,
+                    height:90,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
                         CircleAvatar(
-                          maxRadius: 45,
+                          maxRadius:30,
                           backgroundColor: Colors.white,
                           child: CircleAvatar(
-                            maxRadius: 40,
+                            maxRadius: 25,
                             backgroundImage:
                             AssetImage("images/profileimage.jpg"),
                           ),
@@ -333,7 +336,11 @@ class HomePage extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (ctx) => Contact(),
+                ),
+              );
             },
             leading: Icon(
               Icons.contact_phone,
@@ -343,6 +350,13 @@ class HomePage extends StatelessWidget {
             title: Text("Contact Us"),
           ),
           ListTile(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (ctx) => About(),
+                ),
+              );
+            },
             leading: Icon(
               Icons.info,
               size: 30,
