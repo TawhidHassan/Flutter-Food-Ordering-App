@@ -2,11 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_food_ordering_app/provider/myProvider.dart';
 import 'package:flutter_food_ordering_app/screen/login_page.dart';
+import 'package:provider/provider.dart';
 
 import 'about.dart';
 import 'contact.dart';
 class HomePage extends StatelessWidget {
+
+  Myprovider myprovider;
+
   Widget _buildSingleFeature({
     context,
     String foodTitle,
@@ -85,6 +90,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
+
+
   Widget _buildSingleCategory({String image, String name}) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -106,7 +113,7 @@ class HomePage extends StatelessWidget {
                     height: 80,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("images/$image.png"),
+                        image: NetworkImage(image),
                       ),
                     ),
                   ),
@@ -267,18 +274,13 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    height: 240,
-                    child: Row(
-                      children: [
-                        _buildSingleCategory(name: "Pizza", image: "pizza"),
-                        _buildSingleCategory(name: "Salad", image: "salad"),
-                        _buildSingleCategory(name: "Bargar", image: "bargar"),
-                      ],
+                Container(
+                  height: 240,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: myprovider.categoryNodelList.length,
+                    itemBuilder: (ctx,index)=> _buildSingleCategory(name: myprovider.getCategoryModelList[index].name, image: myprovider.getCategoryModelList[index].image),
                     ),
-                  ),
                 ),
               ],
             ),
@@ -392,6 +394,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    myprovider=Provider.of<Myprovider>(context);
+    myprovider.getCategoryProduct();
     return Scaffold(
       key: _scaffoldKey,
       drawer: _buildMyDrawer(context),
