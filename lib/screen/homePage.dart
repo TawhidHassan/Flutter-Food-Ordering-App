@@ -82,9 +82,7 @@ class HomePage extends StatelessWidget {
         CircleAvatar(
           maxRadius: 60,
           backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage(
-            "images/$image.png",
-          ),
+          backgroundImage: NetworkImage(image),
         ),
       ],
     );
@@ -231,25 +229,17 @@ class HomePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Container(
                     height: 240,
-                    child: Row(
-                      children: [
-                        _buildSingleFeature(
-                          context: context,
-                          foodSubTitle: "7 Oceans Hotel",
-                          foodTitle: "Pasta Cheese",
-                          price: "40",
-                          rating: "4.1",
-                          image: "pastacheese",
-                        ),
-                        _buildSingleFeature(
-                          context: context,
-                          foodSubTitle: "5 Star Hotel",
-                          foodTitle: "Pasta Cheese",
-                          price: "50",
-                          rating: "5.0",
-                          image: "chickenbrost",
-                        ),
-                      ],
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: myprovider.featureModelList.length,
+                      itemBuilder: (ctx,index)=> _buildSingleFeature(
+                        context: context,
+                        foodSubTitle: myprovider.getFeatureModelList[index].foodSubtitle,
+                        foodTitle: myprovider.getFeatureModelList[index].foodtitle,
+                        price: myprovider.getFeatureModelList[index].pricex.toString(),
+                        rating: myprovider.getFeatureModelList[index].rating.toString(),
+                        image: myprovider.getFeatureModelList[index].foodImage,
+                      ),
                     ),
                   ),
                 ),
@@ -396,6 +386,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     myprovider=Provider.of<Myprovider>(context);
     myprovider.getCategoryProduct();
+    myprovider.getFeatureProduct();
     return Scaffold(
       key: _scaffoldKey,
       drawer: _buildMyDrawer(context),
